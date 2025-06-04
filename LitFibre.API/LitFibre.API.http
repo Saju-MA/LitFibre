@@ -1,0 +1,6 @@
+@LitFibre.API_HostAddress = http://localhost:5270
+
+GET {{LitFibre.API_HostAddress}}/
+Accept: application/json
+
+###
