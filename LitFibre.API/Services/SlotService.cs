@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LitFibre.API.Services;
 
+//IFT split into own interface
 public interface ISlotService
 {
     public Task<List<Slot>> GetAvailableSlots(AppointmentType type);
