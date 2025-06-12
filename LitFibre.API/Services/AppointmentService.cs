@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LitFibre.API.Services;
 
+// HJ best to split interfaces from their implementation
+
 public interface IAppointmentService
 {
     public Task<Appointment?> CreateAppointment(AppointmentRequest request);
@@ -14,6 +16,9 @@ public interface IAppointmentService
     public Task<Appointment?> UpdateAppointment(Guid id, UpdateStatusRequest request);
     public Task<bool> CancelAppointment(Guid id);
 }
+
+// IFT Good to consider the usage of a tool like Automapper and its scalability. It may be fine for smaller amounts of data, but can become
+// hard to debug and increase runtime with larger data sets 
 public class AppointmentService(AppDbContext context, IMapper mapper) : IAppointmentService
 {
 
@@ -50,7 +55,6 @@ public class AppointmentService(AppDbContext context, IMapper mapper) : IAppoint
 
         return mapper.Map<Appointment>(appointment);
     }
-
     public async Task<Appointment?> UpdateAppointment(Guid id, UpdateSlotRequest request)
     {
         var appointment = await context.Appointments

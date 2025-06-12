@@ -7,6 +7,9 @@ namespace LitFibre.API.UnitTest.ServicesTests.AppointmentServiceTests;
 
 public class CreateAppointmentTests : AppointmentServiceTestBase
 {
+    // HJ why do you think it fails to pass when run as a suite? - see fixed class
+    // HJ what will happen when this is run on a Friday?
+
     [Fact]
     public async Task CreateAppointment_WhenSuccesful_ShouldReturnAppointment()
     {
@@ -40,7 +43,8 @@ public class CreateAppointmentTests : AppointmentServiceTestBase
         var result = await _service.CreateAppointment(request);
 
         // Assert
-        result!.Slot.Should().BeEquivalentTo(request.Slot);
+        result!.Slot.Should().BeEquivalentTo(request.Slot); // HJ suppressing nullable works as far as the test fails if this is null,
+                                                            // but would be good to explicitly assert it's not null
     }
 
     [Fact]

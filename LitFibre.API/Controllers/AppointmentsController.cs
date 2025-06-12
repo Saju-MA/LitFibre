@@ -7,6 +7,9 @@ namespace LitFibre.API.Controllers;
 
 public class AppointmentsController(IAppointmentService appointmentService) : ControllerBase
 {
+    // HJ Doesn't allow submitting enum as string (as per spec)
+
+  
     [HttpPost]
     [Route("/appointment")]
     [ProducesResponseType(typeof(Appointment), StatusCodes.Status201Created)]
@@ -35,6 +38,13 @@ public class AppointmentsController(IAppointmentService appointmentService) : Co
 
         return CreatedAtAction(nameof(GetAppointment), new { id = appointment.Id }, appointment);
     }
+
+    // HJ if constraining the ID to a GUID, non-guid paths will not be bound properly and result in a blank guid.
+    // This isn't the end of the world, but ideally you'd take a string parameter, validate it as a GUID,
+    // and if it fails return a 400 Bad Request.
+    // Currently returns 404 Not Found if the ID is not a valid GUID.
+
+    // HJ should be [HttpGet]
 
     [HttpPost]
     [Route("/appointment/{id}")]
